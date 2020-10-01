@@ -6,7 +6,7 @@
 #    By: tbillon <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/28 10:08:28 by tbillon           #+#    #+#              #
-#    Updated: 2020/09/28 12:18:21 by tbillon          ###   ########lyon.fr    #
+#    Updated: 2020/09/30 09:40:27 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = BSQ
 
 OBJS = $(SOURCES:.c=.o)
 
-CFLAGS = -Wall -Werror -Wextra -O3 -I includes
+CFLAGS = -g -Wall -Werror -Wextra -O3 -I includes
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)

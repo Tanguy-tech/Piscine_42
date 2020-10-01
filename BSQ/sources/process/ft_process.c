@@ -6,7 +6,7 @@
 /*   By: grivalan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 14:18:50 by grivalan          #+#    #+#             */
-/*   Updated: 2020/09/29 20:05:39 by tbillon          ###   ########lyon.fr   */
+/*   Updated: 2020/09/30 22:53:44 by tbillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,24 +62,23 @@ void	ft_scan_tab(char **tab, int *id_square, int nb_chars, int nb_lines)
 	{
 		coord[0] = 0;
 		while (coord[0] < nb_chars)
+		{
 			coord[0] += ft_backtracking(tab, coord, 0, id_square) + 1;
+		}
 		coord[1]++;
 	}
 }
 
-int		ft_process(char *in)
+int		ft_process(char **tab, int *nb_lines, int *nb_chars)
 {
-	char	**tab;
-	int		nb_lines;
-	int		nb_chars;
 	int		id_square[3];
 
 	id_square[0] = 0;
 	id_square[1] = 0;
 	id_square[2] = 0;
-	tab = ft_file_to_tab(in, &nb_lines, &nb_chars);
-	tab++;
-	ft_scan_tab(tab, id_square, nb_chars, nb_lines);
-	recreate_map(tab, id_square);
+	*nb_lines -= 1;
+	ft_scan_tab(&tab[1], id_square, *nb_chars, *nb_lines);
+	recreate_map(&tab[1], id_square);
+	display_map(tab, *nb_chars);
 	return (1);
 }

@@ -4,6 +4,7 @@ SOURCES += sources/checks/ckeck_params.c
 SOURCES += sources/checks/is_map_valid.c
 SOURCES += sources/display/display_map.c
 SOURCES += sources/errors/print_errors.c
+SOURCES += sources/main.c
 SOURCES += sources/process/ft_file_save.c
 SOURCES += sources/process/ft_file_to_tab.c
 SOURCES += sources/process/ft_process.c

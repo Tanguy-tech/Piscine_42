@@ -6,30 +6,33 @@
 /*   By: grivalan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 12:41:08 by grivalan          #+#    #+#             */
-/*   Updated: 2020/09/29 20:03:28 by tbillon          ###   ########lyon.fr   */
+/*   Updated: 2020/09/30 23:23:38 by tbillon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-void	ft_strcpy(char *a, char *b)
+char	*ft_strcpy(char *a, char *b)
 {
 	int i;
 
-	i = -1;
-	while (a[++i])
+	i = 0;
+	while (a[i])
+	{
 		b[i] = a[i];
+		i++;
+	}
+	b[i] = '\0';
+	return (b);
 }
 
-char	*ft_realloc(char *tab, int *len)
+char	*ft_realloc(char *tab, int *len, int buff)
 {
 	char *new_tab;
 
-	*len += 4000;
-	if (!(new_tab = malloc(sizeof(char) * (*len + 1))))
+	if (!(new_tab = (char *)malloc(sizeof(char) * (buff + *len + 1))))
 		return (0);
-	new_tab[*len] = '\0';
-	ft_strcpy(tab, new_tab);
+	new_tab = ft_strcpy(tab, new_tab);
 	free(tab);
 	return (new_tab);
 }
@@ -37,21 +40,21 @@ char	*ft_realloc(char *tab, int *len)
 char	*ft_stdin_save(void)
 {
 	char		*map;
-	int			i;
-	char		c;
+	char		buff[60000];
 	int			len;
+	int			n_bytes;
+	int			nb;
 
-	i = 0;
-	len = 4000;
-	if ((map = malloc(sizeof(char) * len + 1)) == NULL)
+	n_bytes = 59999;
+	len = 0;
+	if ((map = (char *)malloc(sizeof(char) * (n_bytes + 1))) == NULL)
 		return (0);
-	map[len] = '\0';
-	while (read(0, &c, 1) > 0)
+	while ((nb = read(0, buff, n_bytes)) > 0)
 	{
-		map[i++] = c;
-		if (i == len)
-			map = ft_realloc(map, &len);
+		buff[nb] = '\0';
+		map = ft_cat(map, buff, &len);
+		map = ft_realloc(map, &len, n_bytes);
+		map[len] = '\0';
 	}
-	map[i] = '\0';
 	return (map);
 }
